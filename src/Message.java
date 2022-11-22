@@ -1,131 +1,75 @@
-public class Message {
-    /**
-     * ID of the message
-     */
-    int id;
-    /**
-     * ID of who posted the message
-     * @see User
-     */
-    int userID;
+import java.io.Serializable;
+
+public class Message implements Serializable {
+	protected int ID;
+	protected int userID;
+    protected String type;
+    protected String status;
+    protected String text;
+    public boolean typelock = false;
+
+    public Message(){
+        this.type = "Undefined";
+        this.status = "Undefined";
+        this.text = "Undefined";
+    }
+
+    public Message(String type, String status, String text, int UID){
+        setType(type);
+        setStatus(status);
+        setText(text);
+        setUserID(UID);
+    }
+
+    private void setType(String type){
+    	type = type.toLowerCase();
+    	if (typelock == true) {
+    		return;
+    	}
+    	else if (type == "login" || type == "text" || type == "logout" || type == "signup") {
+    			this.type = type;
+    			typelock = true;
+    	}
+    }
+
+    public void setStatus(String status){ 
+    	this.status = status;
+    }
+
+    public void setText(String text){
+    	this.text = text;
+    }
+
+    public String getType(){  
+    	return type;
+    }
+
+    public String getStatus(){
+    	return status;
+    }
+
+    public String getText(){
+    	return text;
+    }
     
-    /**
-     * Is Message hidden?
-     * @see hideMessage
-     */
-    boolean isHidden;
-    /**
-     * Text display to users
-     * @see getMessageContent
-     * @see hideMessage
-     * @see to_string
-     */
-    String msgContent;
-
-    /**
-     * This function returns the ID of the message
-     * @return ID
-     * 
-     * @author Aftersol
-     */
-    int getID() { return this.id; }
+    public String toString() {
+    	return "Message type: " + type + " " + status + "\nContent: " + text;
+    }
     
-    /**
-     * This function returns the ID of the user
-     * @return userID ID of the user
-     * @see User
-     * 
-     * @author Aftersol
-     */
-    int getUserID() { return this.userID; }
+    int getID() { 
+    	return this.id;
+    }
 
-    /**
-     * Check if the message is hidden from regular users
-     * @see hideMessage
-     * @return isHidden
-     * 
-     * @author Aftersol
-     */
-    boolean getHiddenStatus() { return this.isHidden; }
+    int getUserID() { 
+    	return this.userID; 
+    }
 
-    /**
-     * This function returns the string content of the message class
-     * @return messages
-     * @see hideMessage
-     * 
-     * @author Aftersol
-     */
-    String getMessageContent() { return this.msgContent; }
-
-    /**
-     * Sets the ID of the ,essage
-     * @param id
-     * 
-     * @author Aftersol
-     */
     private void setID(int id) {
         this.id = id;
     }
 
-    /**
-     * Sets the ID of who sent the message
-     * @param userID ID of the user
-     * @see User
-     * 
-     * @author Aftersol
-     */
     private void setUserID(int userID) {
         this.userID = userID;
     }
 
-    /**
-     * Hides the message from regular users, but not the IT user
-     * @see Message
-     * 
-     * @author Aftersol
-     */
-    void hideMessage()
-    {
-        this.isHidden = true;
-    }
-
-    /**
-     * Sets the message to be displayed to users 
-     * @param msgContent
-     * @see Message
-     * @see hideMessage
-     * 
-     * @author Aftersol
-     */
-    void setMessageContent(String msgContent) {
-        this.msgContent = msgContent;
-    }
-
-    /**
-     * This function will convert the Message class into a string
-     * @return Message Content
-     * 
-     */
-    String to_string()
-    {
-        return this.msgContent;
-    }
-
-    /**
-     * Create a message based on the message content
-     * 
-     * @param   ID message ID
-     * @param   userID user ID
-     * 
-     * @see msgContent
-     * 
-     * @author Aftersol
-     */
-    Message(int id, int userID, String msgContent)
-    {
-        setID(id);
-        setUserID(userID);
-        this.isHidden = false;
-        this.msgContent = msgContent;
-    }
 }
