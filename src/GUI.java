@@ -186,6 +186,13 @@ public class GUI {
             	
             	// User entered text
             	if ((channelID != null) && (channelID.length() > 0)) {
+            		Message createChannel = new Message("createchannel", "creating new channel", channelID, 0);
+            		try {
+						out.writeObject(createChannel);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
             		chatArea.append("Channel Created [" + channelID + "]!\r\n");
 //            		createChannel(channelID);
             	}

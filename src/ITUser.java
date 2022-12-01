@@ -20,7 +20,7 @@ public class ITUser extends User{
      */
     void hideMessage(Message msg)
     {
-        msg.hideMessage();
+        //msg.hideMessage();
     }
 
     

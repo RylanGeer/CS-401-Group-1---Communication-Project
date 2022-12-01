@@ -9,7 +9,7 @@ public class Client {
 	public static void main(String[] args) {
 
 			// establish a connection by providing host and port number
-		try (Socket socket = new Socket("put ip here", 1234)) {//change to what ever ip you make the server
+		try (Socket socket = new Socket("172.17.0.91", 1234)) {//change to what ever ip you make the server
 		
 
 				// writing to server
@@ -46,7 +46,6 @@ public class Client {
                 		//needs code to ask for username and password calling the UI
                 		Message SignupMessage = new Message("signup", "creating new user", ui.getUser() + "," + ui.getUser(), 0);
                 		out.writeObject(SignupMessage);
-                		recieved = false;
                 		while (recieved == false) {
                 			Message message = (Message)in.readObject();
                 			if ("signup".equals(message.getType())) {

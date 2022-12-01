@@ -33,6 +33,13 @@ public class Channel {
     boolean isHidden;
 
     /**
+     *  Holds all the logs for the IT user to read
+     *  @see isHidden
+     *  @see hideChannels
+     */
+    Logs logs;
+
+    /**
      * @return ID of the channel
      * 
      * @see setID
@@ -57,7 +64,7 @@ public class Channel {
      * 
      * @author Aftersol
      */
-    boolean getHiddenStatus() { return this.isHidden; }
+    boolean isHidden() { return this.isHidden; }
 
     /**
      * Sets the ID of the channel
@@ -89,7 +96,22 @@ public class Channel {
      * 
      * @author Aftersol
      */
-    void hideChannel() { this.isHidden = true; }
+    void showChannel() { 
+        logs.addLog(getName() + " has been unhidden");
+        this.isHidden = false; 
+    }
+
+    /**
+     * Hides the channel from regular users but not the IT
+     * 
+     * @see getName
+     * 
+     * @author Aftersol
+     */
+    void hideChannel() { 
+        logs.addLog(getName() + " has been hidden");
+        this.isHidden = true; 
+    }
 
     /**
      * Puts the message into the channel
@@ -102,6 +124,41 @@ public class Channel {
     void addMessage(Message msg)
     {
         messages.add(msg);
+    }
+
+    public List<Message> getMessages(int x, int y)
+    {
+        return messages.subList(x, y);
+    }
+
+    public List<Message> getLastMessages(int n)
+    {
+        return getMessages(messages.size() - n, messages.size());
+    }
+
+    public List<String> getLogs()
+    {
+        return logs.getLogs();
+    }
+
+    public List<String> getFirstLogs(int n)
+    {
+        return logs.getFirstLogs(n);
+    }
+
+    public List<String> getLogs(int x, int y)
+    {
+        return logs.getLogs(x, y);
+    }
+
+    public List<String> getLastLogs(int n)
+    {
+        return logs.getLastLogs(n);
+    }
+
+    public void logMessage(String log)
+    {
+        logs.addLog(log);
     }
 
     /**
@@ -117,5 +174,6 @@ public class Channel {
         setID(id);
         setName(name);
         this.isHidden = false;
+        this.logs = new Logs();
     }
 }
